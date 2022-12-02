@@ -1,0 +1,64 @@
+{% extends './base.html' %}
+
+{% block title %}Inicio de sesión{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<form class="form-signin p-2" action="/verificarlinkemail" method="POST">
+    <img class="mb-4" src="{{ url_for('static', filename='img/medico.png') }}" alt="" width="72" height="57">
+    {% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+    <br />
+    {% for message in messages %}
+    <div class="alert alert-primary alert-dismissible" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% endwith %}
+
+    <legend class="text-center header">Registro</legend>
+
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+      </div>
+      <input type="text" name="name" class="form-control" placeholder="Ingrese su nombre" required>
+    </div>
+    <br>
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-envelope-o mediumicon"></i></span>
+      </div>
+      <input type="email" name="email" class="form-control" placeholder="Ingrese su correo" required>
+    </div>
+    <br>
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-phone-square mediumicon"></i></span>
+      </div>
+      <input type="tel" name="phone" class="form-control" placeholder="Ingrese su número telefónico" required>
+    </div>
+    <br>
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-solid fa-lock mediumicon"></i></span>
+      </div>
+      <input type="text" name="name" class="form-control" placeholder="Ingrese su contraseña" required>
+    </div>
+    <br>
+    <div class="form-group">
+      <div class="col-md-12 text-center">
+        <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
+      </div>
+    </div>
+
+  </form>
+{% endblock %}

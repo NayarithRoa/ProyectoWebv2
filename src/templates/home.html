@@ -1,0 +1,12 @@
+{% extends './base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+
+{% block body %}
+<h1>Bienvenido {{ current_user.nombre }}</h1>
+<div class="contenido-header">                  
+    <h4 class="texto-header">Somos un Banco seguro y confiable. Trabajamos para ti</h4>
+</div>
+<a class="btn btn-secondary" href="{{ url_for('logout') }}">Cerrar sesión</a>
+{% endblock %}
