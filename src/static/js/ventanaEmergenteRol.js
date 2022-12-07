@@ -10,17 +10,13 @@
           
         },
         inputPlaceholder: 'Seleccione un rol',
-        showCancelButton: true,
-        inputValidator: (value) => {
-          return new Promise((resolve) => {
-            if (value === 'Paciente') {
-              resolve()
-            }
-          })
-        }
+        showCancelButton: true
       })
       
       if (rol) {
+        //window.location = "../registroDatosBasicos.html";
+        //window.location.href = "https://mapsplatform.google.com/";
+        window.location.href = "solicitarDatosBasicos";
         Swal.fire(`You selected: ${rol}`)
       }
     })()

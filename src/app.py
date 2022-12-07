@@ -70,6 +70,10 @@ def login():
 def movimiento():
     return render_template('auth/registro.html')
 
+@app.route('/solicitarDatosBasicos')
+def solicitarDatosBasicos():
+    return render_template('registroDatosBasicos.html')
+    
 @app.route('/registroDatosBasicos', methods=['POST'])
 def registroDatosBasicos():
     if request.method == 'POST':
