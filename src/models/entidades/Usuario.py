@@ -5,9 +5,10 @@ from flask_login import UserMixin
 
 class UserLogin(UserMixin):
 
-    def __init__(self, id, nombre, telefono, clave="") -> None:
+    def __init__(self, id, nombre, correo, telefono, clave="") -> None:
         self.id = id
         self.nombre = nombre
+        self.correo = correo
         self.telefono = telefono
         self.clave = clave
 
@@ -16,12 +17,9 @@ class UserLogin(UserMixin):
         return check_password_hash(hashed_password, password)
 
 class UserRegister(UserMixin):
-   def __init__(self, id, nombre, telefono, clave, sexo, edad, estrato, vivienda, escolaridad,
+   def __init__(self, id,sexo, edad, estrato, vivienda, escolaridad,
                 ocupacion, afilicacionSalud, discapacidad, enfermedad, cuidador, estadoCivil="") -> None:
         self.id = id
-        self.nombre = nombre
-        self.telefono = telefono
-        self.clave = clave
         self.sexo = sexo
         self.edad = edad
         self.estrato = estrato

@@ -36,19 +36,36 @@ class ModelUser():
             raise Exception(ex)
 
     @classmethod
-    def registrarpersona(self, db, user):
+    def registrardatosbasicos(self, db, user):
         try:
             conn=db.connect()#Conectarse a la base de datos
             cursor=conn.cursor()#Almacenar la instruccion SQL
-            sql = """INSERT INTO persona (id, nombre, telefono, clave, sexo, edad, estrato, vivienda, escolaridad,
-                    ocupacion, afilicacionSalud, discapacidad, enfermedad, cuidador, estadoCivil)
-                    VALUES (NULL, %s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);""" 
-            datos=(user.nombre, user.telefono, user.clave, user.sexo,user.edad,user.estrato,user.vivienda,user.escolaridad,user.ocupacion,user.afilicacionSalud,user.discapacidad, user.enfermedad,user.cuidador,user.estadoCivil) 
+            sql = """UPDATE persona SET sexo=%s, edad=%s, estrato=%s, vivienda=%s, escolaridad=%s,
+                    ocupacion=%s, afilicacionSalud=%s, discapacidad=%s, enfermedad=%s, cuidador=%s, estadoCivil=%s
+                    WHERE id= %s;""" 
+            datos=(user.sexo,user.edad,user.estrato,user.vivienda,user.escolaridad,user.ocupacion,user.afilicacionSalud,user.discapacidad, user.enfermedad,user.cuidador,user.estadoCivil, user.id) 
             cursor.execute(sql, datos) #Ejecutar la instruccion almacenada
             row = cursor.rowcount#devolver toda la informacion la consulta 
-            print("Conectado2")
             if row != None:
-                print("Conectado3")
+                conn.commit() #Cerrar la conexion que se realizó antes
+                return row
+            else:
+                return None
+        except Exception as ex:
+            raise Exception(ex)
+
+    @classmethod
+    def registrarusuario(self, db, user):
+        try:
+            conn=db.connect()#Conectarse a la base de datos
+            cursor=conn.cursor()#Almacenar la instruccion SQL
+            sql = """INSERT INTO persona (id, nombre, correo, telefono, clave, sexo, edad, estrato, vivienda, escolaridad,
+                    ocupacion, afilicacionSalud, discapacidad, enfermedad, cuidador, estadoCivil)
+                    VALUES (NULL, %s,%s, %s,%s,'', '', '', '', '', '', '', '', '', '', '');""" 
+            datos=(user.nombre, user.correo, user.telefono, user.clave) 
+            cursor.execute(sql, datos) #Ejecutar la instruccion almacenada
+            row = cursor.rowcount#devolver toda la informacion la consulta 
+            if row != None:
                 conn.commit() #Cerrar la conexion que se realizó antes
                 return row
             else:

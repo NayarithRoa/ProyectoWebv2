@@ -45,7 +45,7 @@ def load_user(id):
 
 @app.route('/')
 def index():
-    return render_template('registroDatosBasicos.html')
+    return render_template('auth/registro.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -90,7 +90,7 @@ def registroDatosBasicos():
             clave='1234567'
             cuidador=1
             user = UserRegister(0,nombre,telefono, clave,_sexo, _edad,_estrato, _vivienda, _escolaridad,_ocupacion,_sistemaSalud,_discapacidad,_diagnosticomedico,cuidador, _estadocivil)
-            logged_user = ModelUser.registrarpersona(db, user)
+            logged_user = ModelUser.registrardatosbasicos(db, user)
             flash("Datos actualizados") 
             return redirect(url_for('login'))
 
@@ -111,6 +111,13 @@ def registro():
 @app.route("/verificarlinkemail", methods=['GET', 'POST'])
 def verificarlinkemail():
     gmail=request.form['email']
+    name=request.form['name']
+    phone=request.form['phone']
+    clave=request.form['clave']
+    user = UserLogin(0,name,gmail,phone, clave)
+    logged_user = ModelUser.registrarusuario(db, user)
+    #flash("Usuario registrado") 
+
     token= s.dumps(gmail, salt='email-confirmation-key')
     msg=Message('Confirmación registro', sender=params['gmail-user'],recipients=[gmail])
     link=url_for('confirmemail', token=token, _external=True)
