@@ -1,0 +1,84 @@
+{% extends './base.html' %}
+
+{% block title %}Inicio de sesión{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/datosbasicos.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<form class="form-signin p-2" action="/registrarUsuario2" method="POST">
+    <img class="mb-4" src="{{ url_for('static', filename='img/person1.png') }}" alt="" width="120" height="120">
+    {% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+    <br />
+    {% for message in messages %}
+    <div class="alert alert-primary alert-dismissible" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% endwith %}
+
+    <legend class="text-center header">Datos básicos</legend>
+
+<div id="tabla-cajas">
+
+    <div class="caja magictime" onclick="mostrardetalleCaja(8)" id="cajaencabezado">
+        <div class="precio-col-comprar">
+            <a>Afiliación al sistema de salud</a>
+             </div>
+    </div>
+
+    <div class="caja" id="cajadetalle" >
+        <a>Afiliación al sistema de salud</a>
+        <div class="form-group input-group"> <!-- State Button -->
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+            </div>
+            <select class="form-select form-select-sm" name="sistemaSalud">
+                <option selected>Seleccionar...</option>
+                <option value="Subsidiado">Subsidiado</option>
+                <option value="Contributivo">Contributivo</option>
+                <option value="Régimen especial">Régimen especial</option>
+                <option value="Vinculado">Vinculado</option>
+                <option value="Particular">Particular</option>
+            </select>                    
+        </div>
+    </div>
+
+    
+    <div class="caja" onclick="mostrardetalleCaja(9)" id="cajaencabezado1">
+        <div class="precio-col-comprar">
+            <a>Diagnósticos médicos</a>
+        </div>
+    </div>
+
+    <div class="caja" id="cajadetalle1" >
+        <a>Diagnósticos médicos</a>
+        <div class="form-group input-group"> <!-- State Button -->
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+            </div>
+            <select class="form-select form-select-sm" name="ocupacion">
+                <option selected>Seleccionar...</option>
+                <option value="Ostomia">Ostomia</option>
+                <option value="Pie diabético">Pie diabético</option>
+              </select>              
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12 text-center">
+      <button type="submit" class="btn btn-primary btn-lg">Siguiente</button>
+    </div>
+</div>
+
+</form>
+
+{% endblock %}

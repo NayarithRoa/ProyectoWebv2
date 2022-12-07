@@ -1,0 +1,100 @@
+#tabla-cajas {
+    display:inline-flex;
+    flex-direction: row;
+    Justify-content:center;
+    width:100%;
+    margin-top:50px;
+    
+   }
+   
+   /*Columnas*/
+   
+   .caja{
+    display:inline-block;
+    background-color:#789dca;
+    width: 100%;
+    height: 250px;
+    max-width:300px;
+    border-radius:10px;
+    margin-bottom:50px;
+
+    box-shadow: 0px 2px 5px #ddd;
+    
+   }
+
+   #cajadetalle, #cajadetalle1, #cajadetalle2, 
+   #cajadetalle3,#cajadetalle4, #cajadetalle5, 
+   #cajadetalle6, #cajadetalle7, #cajadetalle8, #cajadetalle9{
+    display: none;
+    background-color:#ff6961;
+   }
+   
+   .magictime {
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+}
+   @media screen and (min-width:768px) {
+    .caja {
+    width:32%;
+    float:left;
+    margin-right:2%
+    }
+    
+    .caja:last-child {
+    margin-right:0
+    }
+   }
+   
+   /*Comprar*/
+   
+   .precio-col-comprar {
+    padding:10px;
+    max-width:250px;
+    text-align:center;
+    background-color:#dd9933;
+    margin: 0 auto 20px;
+    border-radius:10px;
+    border: 2px solid #dd9933;
+    transition: all 0.3s
+   }
+   
+   .precio-col-comprar a {
+    color:#f3f3f3;
+    padding:10px;
+    font-size:20px;
+    text-transform:uppercase;
+    transition: all 0.3s
+   }
+   
+   .precio-col-comprar:hover {
+    background-color:#f3f3f3;
+    transition: all 0.3s
+   }
+   
+   .precio-col-comprar:hover a {
+    color:#dd9933;
+    transition: all 0.3s
+   }
+
+   .div{
+  margin-top: 1rem;
+  max-width:400px;
+  box-shadow: 0 0 1px #000;
+  padding: 1rem;
+  opacity:1;
+  transition: 0.2s all linear;
+}
+
+.div_hide{
+  opacity: 0;
+}
+
+
+
+button{
+  border: none;
+  padding: .5rem 1rem;
+  background: #d90e52;
+  color: white;
+  cursor: pointer;
+}

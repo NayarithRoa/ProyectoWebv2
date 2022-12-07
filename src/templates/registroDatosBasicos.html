@@ -1,0 +1,331 @@
+{% extends './base.html' %}
+
+{% block title %}Inicio de sesión{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/multiform.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/datosbasicos.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center align-items-center">
+        
+            <form id="regForm" action="/registroDatosBasicos" method="POST">
+                <img class="mb-4" src="{{ url_for('static', filename='img/person1.png') }}" alt="" width="120" height="120">
+                {% with messages = get_flashed_messages() %}
+            
+                {% if messages %}
+                <br />
+                {% for message in messages %}
+                <div class="alert alert-primary alert-dismissible" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+            
+                {% endwith %}
+                <h1 id="register">Datos básicos</h1>
+                <div class="all-steps" id="all-steps"> 
+                    <span class="step"></span> 
+                    <span class="step"></span> 
+                    <span class="step"></span> 
+                    <span class="step"></span>
+                    <span class="step"></span>
+                 </div>
+                <!-- PRIMERA PARTE DE SOLICITUD DATOS BASICOS-EDAD, SEXO, ESTADO CIVIL-->
+                <div class="tab">
+                    <div class="caja" id="cajaencabezado" onclick="mostrardetalleCaja(1)">
+                        <div class="precio-col-comprar">
+                            <a>Sexo</a>
+                        </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle" >
+                        <a>Sexo</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="sexo">
+                                <option selected>Seleccionar sexo...</option>
+                                <option value="F">Femenino</option>
+                                <option value="M">Masculino</option>
+                            </select>                    
+                        </div>
+                    </div>
+                
+                    
+                    <div class="caja" onclick="mostrardetalleCaja(2)" id="cajaencabezado1">
+                        <div class="precio-col-comprar">
+                            <a>Edad</a>
+                        </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle1" >
+                        <a>Edad</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="edad">
+                                <option selected>Seleccionar edad....</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                <option value="32">32</option>
+                                <option value="33">33</option>
+                                <option value="34">34</option>
+                                <option value="35">35</option>
+                                <option value="36">36</option>
+                                <option value="37">37</option>
+                                <option value="38">38</option>
+                                <option value="39">39</option>
+                                <option value="40">40</option>
+                                <option value="41">41</option>
+                                <option value="42">42</option>
+                                <option value="43">43</option>
+                                <option value="44">44</option>
+                                <option value="45">45</option>
+                                <option value="46">46</option>
+                                <option value="47">47</option>
+                                <option value="48">48</option>
+                                <option value="49">49</option>
+                                <option value="50">50</option>
+                              </select>              
+                        </div>
+                    </div>
+                
+                    <div class="caja" onclick="mostrardetalleCaja(3)" id="cajaencabezado2">
+                        <div class="precio-col-comprar">
+                            <a>Estado civil</a>
+                        </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle2" >
+                        <a>Estado civil</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="estadocivil" required>
+                                <option selected>Seleccionar estado civil...</option>
+                                <option value="Soltero">Soltero</option>
+                                <option value="Casado">Casado</option>
+                                <option value="Separado">Separado</option>
+                                <option value="Viudo">Viudo</option>
+                                <option value="Unión Libre">Unión Libre</option>
+                            </select>                    
+                        </div>
+                    </div>
+                </div>
+                <!-- SEGUNDA PARTE DE SOLICITUD DATOS BASICOS-ESTRATO Y VIVIENDA-->
+                <div class="tab">
+                    <div class="caja" id="cajaencabezado3" onclick="mostrardetalleCaja(4)">
+                        <div class="precio-col-comprar">
+                            <a>Estrato</a>
+                        </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle3" >
+                        <a>Estrato</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="estrato">
+                                <option selected>Seleccionar estrato...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>                    
+                        </div>
+                    </div>
+                
+                    
+                    <div class="caja" onclick="mostrardetalleCaja(5)" id="cajaencabezado4">
+                        <div class="precio-col-comprar">
+                            <a>Vivienda</a>
+                        </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle4" >
+                        <a>Vivienda</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="vivienda">
+                                <option selected>Seleccionar vivienda...</option>
+                                <option value="Rural">Rural</option>
+                                <option value="Urbana">Urbana</option>
+                    
+                              </select>              
+                        </div>
+                    </div>
+
+                </div>
+                   <!-- TERCERA PARTE DE SOLICITUD DATOS BASICOS-ESCOLARIDAD Y OCUPACION-->
+                <div class="tab">
+                    <div class="caja" onclick="mostrardetalleCaja(6)" id="cajaencabezado5">
+                        <div class="precio-col-comprar">
+                            <a>Escolaridad</a>
+                        </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle5" >
+                        <a>Escolaridad</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="escolaridad">
+                                <option selected>Seleccionar escolaridad...</option>
+                                <option value="Primaria">Primaria</option>
+                                <option value="Bachillerato">Bachillerato</option>
+                                <option value="Técnico">Técnico</option>
+                                <option value="Pregrado">Pregrado</option>
+                                <option value="Posgrado">Posgrado</option>
+                            </select>                    
+                        </div>
+                    </div>
+                
+                    
+                    <div class="caja" onclick="mostrardetalleCaja(7)" id="cajaencabezado6">
+                        <div class="precio-col-comprar">
+                            <a>Ocupación</a>
+                        </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle6" >
+                        <a>Ocupación</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="ocupacion">
+                                <option selected>Seleccionar ocupación...</option>
+                                <option value="Hogar">Hogar</option>
+                                <option value="Empleado">Empleado</option>
+                                <option value="Independiente">Independiente</option>
+                                <option value="Pensionado">Pensionado</option>
+                                <option value="Otro">Otro</option>
+                              </select>              
+                        </div>
+                    </div>
+                </div>
+                <!-- CUARTA PARTE DE SOLICITUD DATOS BASICOS- AFILIACION AL SISTEMA DE SALUD, DIAGNOSTICO MEDICO Y DISCAPACIDADES-->
+                <div class="tab">
+                    <div class="caja magictime" onclick="mostrardetalleCaja(8)" id="cajaencabezado7">
+                        <div class="precio-col-comprar">
+                            <a>Afiliación al sistema de salud</a>
+                             </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle7" >
+                        <a>Afiliación al sistema de salud</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="sistemaSalud">
+                                <option selected>Seleccionar...</option>
+                                <option value="Subsidiado">Subsidiado</option>
+                                <option value="Contributivo">Contributivo</option>
+                                <option value="Régimen especial">Régimen especial</option>
+                                <option value="Vinculado">Vinculado</option>
+                                <option value="Particular">Particular</option>
+                            </select>                    
+                        </div>
+                    </div>
+                
+                    
+                    <div class="caja" onclick="mostrardetalleCaja(9)" id="cajaencabezado8">
+                        <div class="precio-col-comprar">
+                            <a>Diagnósticos médicos</a>
+                        </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle8" >
+                        <a>Diagnósticos médicos</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="diagnosticomedico">
+                                <option selected>Seleccionar...</option>
+                                <option value="Ostomia">Ostomia</option>
+                                <option value="Pie diabético">Pie diabético</option>
+                              </select>              
+                        </div>
+                    </div>
+
+                    <div class="caja" onclick="mostrardetalleCaja(10)" id="cajaencabezado9">
+                        <div class="precio-col-comprar">
+                            <a>Discapacidades</a>
+                        </div>
+                    </div>
+                
+                    <div class="caja" id="cajadetalle9" >
+                        <a>Discapacidades</a>
+                        <div class="form-group input-group"> <!-- State Button -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user mediumicon"></i></span>
+                            </div>
+                            <select class="form-select form-select-sm" name="discapacidad">
+                                <option selected>Seleccionar discapacidad...</option>
+                                <option value="Ninguna">Ninguna</option>
+                                <option value="Auditiva">Auditiva</option>
+                                <option value="Visual">Visual</option>
+                                <option value="De movilidad">De movilidad</option>
+                                <option value="Otra">Otra</option>
+                              </select>              
+                        </div>
+                    </div>
+                </div>
+
+                <div class="thanks-message text-center" id="text-message"> <img src="https://i.imgur.com/O18mJ1K.png" width="100" class="mb-4">
+                    <h3>Thanks for your Donation!</h3> <span>Your donation has been entered! We will contact you shortly!</span>
+                </div>
+                <div id="nextprevious">
+                    <div style="float:center;"> 
+                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Siguiente</button> 
+                        <button type="submit" id="guardar" class="btn btn-primary btn-lg">Guardar</button>
+                    </div>
+                </div>
+            </form>
+    </div>
+</div>
+{% endblock %}
