@@ -57,3 +57,4 @@ function mostrardetalleCaja(aspecto) {
         detalle.style.display = "block";
     }
   }
+

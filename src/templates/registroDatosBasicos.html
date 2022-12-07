@@ -8,25 +8,14 @@
 {% endblock %}
 
 {% block body %}
+{% include 'mensajes.html' %} <!--mostrar mensajes de alerta!-->
 
 <div class="container mt-5">
     <div class="row d-flex justify-content-center align-items-center">
         
             <form id="regForm" action="/registroDatosBasicos" method="POST">
                 <img class="mb-4" src="{{ url_for('static', filename='img/person1.png') }}" alt="" width="120" height="120">
-                {% with messages = get_flashed_messages() %}
-            
-                {% if messages %}
-                <br />
-                {% for message in messages %}
-                <div class="alert alert-primary alert-dismissible" role="alert">
-                    <strong>{{ message }}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endfor %}
-                {% endif %}
-            
-                {% endwith %}
+        
                 <h1 id="register">Datos básicos</h1>
                 <div class="all-steps" id="all-steps"> 
                     <span class="step"></span> 
@@ -328,4 +317,8 @@
             </form>
     </div>
 </div>
+{% endblock %}
+{% block customJS %}
+<script src="../static/js/datosbasicos.js"></script>
+<script src="../static/js/multiform.js"></script>
 {% endblock %}

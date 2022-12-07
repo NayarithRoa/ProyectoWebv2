@@ -8,12 +8,15 @@ class ModelUser():
         try:
             conn=db.connect()#Conectarse a la base de datos
             cursor=conn.cursor()#Almacenar la instruccion SQL
-            sql = """SELECT id, nombre, telefono, clave FROM persona 
+            sql = """SELECT id,nombre, correo,telefono, clave FROM persona 
                     WHERE telefono = '{}'""".format(user.telefono)
+            #NOTA:No se valida la clave directamente en el WHERE sino con el metodo UserLogin.check_password,
+            #el cual retorna TRUE o FALSE, si la clave real coincide con la clave encriptada
             cursor.execute(sql) #Ejecutar la instruccion almacenada
             row = cursor.fetchone() #devolver toda la informacion la consulta 
             if row != None:
-                user = UserLogin(row[0], row[1], row[2], UserLogin.check_password(row[3], user.clave) )
+                user = UserLogin(row[0],row[1],row[2],row[3], UserLogin.check_password(row[4],user.clave))
+               
                 return user
             else:
                 return None
@@ -30,6 +33,25 @@ class ModelUser():
             if row != None:
                 user = UserLogin(row[0], row[1], row[2],None)
                 return user
+            else:
+                return None
+        except Exception as ex:
+            raise Exception(ex)
+    
+    @classmethod
+    def registrarusuario(self, db, user):
+        try:
+            conn=db.connect()#Conectarse a la base de datos
+            cursor=conn.cursor()#Almacenar la instruccion SQL
+            sql = """INSERT INTO persona (id, nombre, correo, telefono, clave, sexo, edad, estrato, vivienda, escolaridad,
+                    ocupacion, afilicacionSalud, discapacidad, enfermedad, cuidador, estadoCivil)
+                    VALUES (NULL, %s,%s, %s,%s,'', '', '', '', '', '', '', '', '', '', '');""" 
+            datos=(user.nombre, user.correo, user.telefono, UserLogin.generar_password(user.clave)) 
+            cursor.execute(sql, datos) #Ejecutar la instruccion almacenada
+            row = cursor.rowcount#devolver toda la informacion la consulta 
+            if row != None:
+                conn.commit() #Cerrar la conexion que se realizó antes
+                return row
             else:
                 return None
         except Exception as ex:
@@ -54,22 +76,8 @@ class ModelUser():
         except Exception as ex:
             raise Exception(ex)
 
-    @classmethod
-    def registrarusuario(self, db, user):
-        try:
-            conn=db.connect()#Conectarse a la base de datos
-            cursor=conn.cursor()#Almacenar la instruccion SQL
-            sql = """INSERT INTO persona (id, nombre, correo, telefono, clave, sexo, edad, estrato, vivienda, escolaridad,
-                    ocupacion, afilicacionSalud, discapacidad, enfermedad, cuidador, estadoCivil)
-                    VALUES (NULL, %s,%s, %s,%s,'', '', '', '', '', '', '', '', '', '', '');""" 
-            datos=(user.nombre, user.correo, user.telefono, user.clave) 
-            cursor.execute(sql, datos) #Ejecutar la instruccion almacenada
-            row = cursor.rowcount#devolver toda la informacion la consulta 
-            if row != None:
-                conn.commit() #Cerrar la conexion que se realizó antes
-                return row
-            else:
-                return None
-        except Exception as ex:
-            raise Exception(ex)
+ 
+
+
+
     

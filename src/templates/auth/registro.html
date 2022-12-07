@@ -10,19 +10,6 @@
 
 <form class="form-signin p-2" action="/verificarlinkemail" method="POST">
     <img class="mb-4" src="{{ url_for('static', filename='img/person1.png') }}" alt="" width="72" height="72">
-    {% with messages = get_flashed_messages() %}
-
-    {% if messages %}
-    <br />
-    {% for message in messages %}
-    <div class="alert alert-primary alert-dismissible" role="alert">
-        <strong>{{ message }}</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %}
-    {% endif %}
-
-    {% endwith %}
 
     <legend class="text-center header">Registro</legend>
 
@@ -51,7 +38,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fa fa-solid fa-lock mediumicon"></i></span>
       </div>
-      <input type="text" name="clave" class="form-control" placeholder="Ingrese su contraseña" required>
+      <input type="password" name="clave" class="form-control" placeholder="Ingrese su contraseña" required>
     </div>
     <br>
     <div class="form-group">

@@ -4,9 +4,14 @@
 
 
 {% block body %}
+
 <h1>Bienvenido {{ current_user.nombre }}</h1>
 <div class="contenido-header">                  
-    <h4 class="texto-header">Somos un Banco seguro y confiable. Trabajamos para ti</h4>
+    <h4 class="texto-header">Aplicación para seguimiento a usuarios</h4>
+    <img class="mb-4" src="{{ url_for('static', filename='img/person1.png') }}" alt="" width="72" height="72">
 </div>
 <a class="btn btn-secondary" href="{{ url_for('logout') }}">Cerrar sesión</a>
+{% endblock %}
+{% block customJS %}
+<script src="../static/js/ventanaEmergenteRol.js"></script>
 {% endblock %}

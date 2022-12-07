@@ -45,16 +45,16 @@ def load_user(id):
 
 @app.route('/')
 def index():
-    return render_template('auth/registro.html')
+    return render_template('auth/login.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = UserLogin(0, request.form['username'], request.form['password'])
+        user = UserLogin(0, '','',request.form['username'], request.form['password'])
         logged_user = ModelUser.login(db, user)
         if logged_user != None:
-            if logged_user.password:
-                logged_user = ModelUser.login(db, user)
+            #metodo retorna TRUE o FALSE, si la clave real coincide con la clave encriptada
+            if logged_user.clave:
                 return redirect(url_for('home'))
             else:
                 flash("Clave invalida...")
@@ -65,6 +65,10 @@ def login():
         
     else:
         return render_template('auth/login.html')
+
+@app.route('/registro')
+def movimiento():
+    return render_template('auth/registro.html')
 
 @app.route('/registroDatosBasicos', methods=['POST'])
 def registroDatosBasicos():
@@ -101,11 +105,8 @@ def logout():
 
 @app.route('/home')
 def home():
+    flash("Por favor suministre algunos datos básicos", category="success") 
     return render_template('home.html')
-
-@app.route('/registro')
-def registro():
-    return render_template('auth/registro.html')
 
 #Envía correo de confirmacion cuando esta creando un nuevo usuario en la app
 @app.route("/verificarlinkemail", methods=['GET', 'POST'])
@@ -116,14 +117,16 @@ def verificarlinkemail():
     clave=request.form['clave']
     user = UserLogin(0,name,gmail,phone, clave)
     logged_user = ModelUser.registrarusuario(db, user)
-    #flash("Usuario registrado") 
+    flash("Usuario registrado", category="info") 
 
     token= s.dumps(gmail, salt='email-confirmation-key')
     msg=Message('Confirmación registro', sender=params['gmail-user'],recipients=[gmail])
     link=url_for('confirmemail', token=token, _external=True)
     msg.body="Hola, \n Gracias por registrarte en nuestra aplicacion. \n Tu codigo de verificacion es: " + link
     mail.send(msg)
-    return "<h2>Verifique su correo para confirmar el registro. </h2>"
+    #return "<h2>Verifique su correo para confirmar el registro. </h2>"
+    #return render_template('auth/registro.html')
+    return redirect(url_for('login'))
 
 @app.route('/confirmemail/<token>')
 def confirmemail(token):
