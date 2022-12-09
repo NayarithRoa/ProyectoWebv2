@@ -15,6 +15,8 @@ from models.ModelUser import ModelUser
 # Entidades:
 from models.entidades.Usuario import UserLogin, UserRegister
 app = Flask(__name__)
+#Variable global
+global codigoid
 
 #csrf = CSRFProtect()
 db = MySQL(app)
@@ -54,7 +56,8 @@ def login():
         logged_user = ModelUser.login(db, user)
         if logged_user != None:
             #metodo retorna TRUE o FALSE, si la clave real coincide con la clave encriptada
-            if logged_user.clave:
+            if logged_user.clave: 
+                codigoid= logged_user.id;
                 return redirect(url_for('home'))
             else:
                 flash("Clave invalida...")
@@ -93,14 +96,13 @@ def registroDatosBasicos():
             return render_template('datosBasicosParte2.html')
             
         else:
-            nombre='naya1'
-            telefono='3023925456'
-            clave='1234567'
+            id=1
+            #print(logged_user.id)
             cuidador=1
-            user = UserRegister(0,nombre,telefono, clave,_sexo, _edad,_estrato, _vivienda, _escolaridad,_ocupacion,_sistemaSalud,_discapacidad,_diagnosticomedico,cuidador, _estadocivil)
+            user = UserRegister(id,_sexo, _edad,_estrato, _vivienda, _escolaridad,_ocupacion,_sistemaSalud,_discapacidad,_diagnosticomedico,cuidador, _estadocivil)
             logged_user = ModelUser.registrardatosbasicos(db, user)
             flash("Datos actualizados") 
-            return redirect(url_for('login'))
+            return redirect(url_for('home'))
 
 @app.route('/logout')
 def logout():
@@ -109,7 +111,6 @@ def logout():
 
 @app.route('/home')
 def home():
-    flash("Por favor suministre algunos datos básicos", category="success") 
     return render_template('home.html')
 
 #Envía correo de confirmacion cuando esta creando un nuevo usuario en la app
